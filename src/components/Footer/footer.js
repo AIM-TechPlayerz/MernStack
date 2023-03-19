@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Inter } from '@next/font/google';
 
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import record from '@/app/record/page';
 import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
