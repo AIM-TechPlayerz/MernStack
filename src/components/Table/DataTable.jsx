@@ -10,7 +10,7 @@ const DataTable = ({ data }) => {
 
   console.log("this is data from table", data);
 
-  const [dataAfterDeleted] = useState([...data]);
+  const [dataAfterDeleted, setDataAfterDeleted] = useState([...data]);
 
   const columns = React.useMemo(
     () => [
@@ -46,7 +46,7 @@ const DataTable = ({ data }) => {
             <div className="m-1">
               <button
                 className="bg-teal-400 rounded p-4 text-white"
-                onClick={(e) => handleDetailView(row.row.original)}
+                onClick={() => handleDetailView(row.row.original)}
               >
                 View
               </button>
@@ -56,7 +56,7 @@ const DataTable = ({ data }) => {
               {" "}
               <button
                 className="bg-teal-400 rounded p-4 text-white"
-                onClick={(e) => handleEdit(row.row.original)}
+                onClick={() => handleEdit(row)}
               >
                 Edit
               </button>
@@ -69,10 +69,8 @@ const DataTable = ({ data }) => {
                 Delete
               </button>
             </div>
-            
           </div>
-          
-        ), // Custom cell components! --> React Table 
+        ), // Custom cell components! --> React Table --> Button
       },
     ],
     []
@@ -106,9 +104,9 @@ const DataTable = ({ data }) => {
   } = tableInstance;
 
   const handleEdit = (row) => {
-    console.log(row);
-    const { _id } = row;
-    console.log(_id);
+    console.log(row.row);
+    // const { _id } = row;
+    // console.log(_id);
   };
 
   const handleDetailView = (row) => {
