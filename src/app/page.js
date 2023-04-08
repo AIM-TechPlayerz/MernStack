@@ -1,14 +1,4 @@
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import record from "@/app/add-record/page";
-import Link from "next/link";
-import Herosection from "@/components/Herosection/herosection";
-import Header from "@/components/Header/header";
-import Footer from "@/components/Footer/footer";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Header, Footer, Herosection } from "@/components/index";
 
 export default function Home() {
   return (

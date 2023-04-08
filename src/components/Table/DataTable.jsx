@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { useTable, usePagination } from "react-table";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
 const DataTable = ({ data }) => {
-    const router = useRouter();
+  const router = useRouter();
+
+  console.log("this is data from table", data);
 
   const [dataAfterDeleted] = useState([...data]);
+
   const columns = React.useMemo(
     () => [
       {
@@ -66,12 +69,15 @@ const DataTable = ({ data }) => {
                 Delete
               </button>
             </div>
+            
           </div>
-        ),
+          
+        ), // Custom cell components! --> React Table 
       },
     ],
     []
   );
+
   const tableInstance = useTable(
     {
       columns,
@@ -101,32 +107,34 @@ const DataTable = ({ data }) => {
 
   const handleEdit = (row) => {
     console.log(row);
+    const { _id } = row;
+    console.log(_id);
   };
 
   const handleDetailView = (row) => {
     console.log(row);
     const { _id: id } = row;
-    router.push(`/students-record/${id}`)
-    }
-    const handleDelete = async (row) => {
-        const { _id: id } = row;
-        const confirmation = window.confirm(
-          "Are you sure you want to delete this record?"
+    router.push(`/students-record/${id}`);
+  };
+  const handleDelete = async (row) => {
+    const { _id: id } = row;
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this record?"
+    );
+    if (confirmation) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:3000/api/students/${id}`
         );
-        if (confirmation) {
-          try {
-            const response = await axios.delete(
-              `http://localhost:3000/api/students/${id}`
-            );
-            alert(response.data.message);
-          } catch (err) {
-            console.log(err);
-          }
-        }
-    
-        const newData = data.filter((item) => item._id !== id);
-        setDataAfterDeleted(newData);
-      };
+        alert(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    const newData = data.filter((item) => item._id !== id);
+    setDataAfterDeleted(newData);
+  };
   return (
     <div className="container mt-15">
       <table
