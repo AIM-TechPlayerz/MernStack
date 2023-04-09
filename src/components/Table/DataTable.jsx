@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { useTable, usePagination } from "react-table";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
 const DataTable = ({ data }) => {
-    const router = useRouter();
+  const router = useRouter();
 
-  const [dataAfterDeleted] = useState([...data]);
+  console.log("this is data from table", data);
+
+  const [dataAfterDeleted, setDataAfterDeleted] = useState([...data]);
+
   const columns = React.useMemo(
     () => [
       {
@@ -43,7 +46,7 @@ const DataTable = ({ data }) => {
             <div className="m-1">
               <button
                 className="bg-teal-400 rounded p-4 text-white"
-                onClick={(e) => handleDetailView(row.row.original)}
+                onClick={() => handleDetailView(row.row.original)}
               >
                 View
               </button>
@@ -53,7 +56,7 @@ const DataTable = ({ data }) => {
               {" "}
               <button
                 className="bg-teal-400 rounded p-4 text-white"
-                onClick={(e) => handleEdit(row.row.original)}
+                onClick={() => handleEdit(row)}
               >
                 Edit
               </button>
@@ -67,11 +70,12 @@ const DataTable = ({ data }) => {
               </button>
             </div>
           </div>
-        ),
+        ), // Custom cell components! --> React Table --> Button
       },
     ],
     []
   );
+
   const tableInstance = useTable(
     {
       columns,
@@ -100,33 +104,35 @@ const DataTable = ({ data }) => {
   } = tableInstance;
 
   const handleEdit = (row) => {
-    console.log(row);
+    console.log(row.row);
+    // const { _id } = row;
+    // console.log(_id);
   };
 
   const handleDetailView = (row) => {
     console.log(row);
     const { _id: id } = row;
-    router.push(`/students-record/${id}`)
-    }
-    const handleDelete = async (row) => {
-        const { _id: id } = row;
-        const confirmation = window.confirm(
-          "Are you sure you want to delete this record?"
+    router.push(`/students-record/${id}`);
+  };
+  const handleDelete = async (row) => {
+    const { _id: id } = row;
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this record?"
+    );
+    if (confirmation) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:3000/api/students/${id}`
         );
-        if (confirmation) {
-          try {
-            const response = await axios.delete(
-              `http://localhost:3000/api/students/${id}`
-            );
-            alert(response.data.message);
-          } catch (err) {
-            console.log(err);
-          }
-        }
-    
-        const newData = data.filter((item) => item._id !== id);
-        setDataAfterDeleted(newData);
-      };
+        alert(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    const newData = data.filter((item) => item._id !== id);
+    setDataAfterDeleted(newData);
+  };
   return (
     <div className="container mt-15">
       <table
