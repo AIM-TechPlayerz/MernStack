@@ -8,9 +8,18 @@ import axios from "axios";
 const DataTable = ({ data }) => {
   const router = useRouter();
 
+  // let maham="maham"
+
+  // let ayesha="ayesha"
+
+  // maham=ayesha
+
   console.log("this is data from table", data);
 
-  const [dataAfterDeleted, setDataAfterDeleted] = useState([...data]);
+  const [dataAfterDeleted, setDataAfterDeleted] = useState(data);
+
+// dataAfterDeleted = data [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
 
   const columns = React.useMemo(
     () => [
@@ -56,7 +65,7 @@ const DataTable = ({ data }) => {
               {" "}
               <button
                 className="bg-teal-400 rounded p-4 text-white"
-                onClick={() => handleEdit(row)}
+                onClick={() => handleEdit(row.row.original)}
               >
                 Edit
               </button>
@@ -80,10 +89,14 @@ const DataTable = ({ data }) => {
     {
       columns,
       data: dataAfterDeleted ? dataAfterDeleted : data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 1 },
     },
     usePagination
   );
+
+  console.log(tableInstance, "tableInstance");
+
+// obj ={name:"sdf", age: 23}  --> obj.name --> sdf --> || const {name} = obj --> name = sdf
 
   const {
     getTableProps,
@@ -91,7 +104,6 @@ const DataTable = ({ data }) => {
     headerGroups,
     page,
     prepareRow,
-
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -101,14 +113,21 @@ const DataTable = ({ data }) => {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = tableInstance;
+  } = useTable(
+    {
+      columns,
+      data,
+      // data: dataAfterDeleted ? dataAfterDeleted : data,
+      initialState: { pageIndex: 1 },
+    },
+    usePagination
+  );
 
   const handleEdit = (row) => {
     console.log(row.row);
     // const { _id } = row;
     // console.log(_id);
   };
-
   const handleDetailView = (row) => {
     console.log(row);
     const { _id: id } = row;
@@ -130,9 +149,19 @@ const DataTable = ({ data }) => {
       }
     }
 
+    // suppose id = 64281de0fa6b685200f15dee --> clicked on delete button --> id = 64281de0fa6b685200f15dee
+    // array method --> filter --> return new array --> filter out the item which is not equal to the id
+
+    // [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}] --> data
+    // id = 64281de0fa6b685200f15dee	
+
+    // [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}] --> newData
+
     const newData = data.filter((item) => item._id !== id);
+    // dataAfterDeleted = newData
     setDataAfterDeleted(newData);
   };
+
   return (
     <div className="container mt-15">
       <table
@@ -140,13 +169,15 @@ const DataTable = ({ data }) => {
         {...getTableProps()}
       >
         <thead className="text-white" {...getTableBodyProps()}>
-          {headerGroups.map((headerGroup) => (
+          {headerGroups.map((headerGroup, index) => (
             <tr
+              key={index}
               className="bg-teal-400 rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
               {...headerGroup.getHeaderGroupProps()}
             >
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column, index) => (
                 <th
+                  key={index}
                   className="p-3 text-left"
                   width="110px"
                   {...column.getHeaderProps()}
@@ -161,10 +192,11 @@ const DataTable = ({ data }) => {
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+              <tr {...row.getRowProps()} key={i}>
+                {row.cells.map((cell, index) => {
                   return (
                     <td
+                      key={index}
                       className="border-grey-light border hover:bg-gray-100 p-3"
                       {...cell.getCellProps()}
                     >
