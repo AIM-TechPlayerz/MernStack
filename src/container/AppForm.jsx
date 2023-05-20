@@ -25,6 +25,7 @@ const AppForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(!form.name || !form.email ) return;
         console.log(form);
     }
 
@@ -41,6 +42,7 @@ const AppForm = () => {
             tag={input.tag}
             type={input.type}
           />
+
         ))}
         <button type="submit" onClick={handleSubmit} >
             Submit
