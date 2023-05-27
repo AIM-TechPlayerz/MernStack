@@ -1,38 +1,30 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import { FormInput } from "@/components";
 import { FormInputsData } from "@/constants";
+import { useForm } from "react-hook-form";
 
 const AppForm = () => {
 
-    const initialFormValue = FormInputsData.reduce((acc, input) => {
-        return {
-            ...acc,
-            [input.name]: "",  // name,email: "" --> key 
-        }
-    }, {})
+  const reactHookForm = useForm();
 
-    const [form, setForm] = useState(initialFormValue)
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  // console.log("useForm ",reactHookForm);
 
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(!form.name || !form.email ) return;
-        console.log(form);
-    }
+  const onSubmit = (data) => {
+    console.log("data ", data);
+  }
 
   return (
     <>
-      <form>
-        {FormInputsData.map((input, index) => (
+      <form onSubmit={handleSubmit(onSubmit)}>
+
+       
+
+      <input {...register("name", { required: true })} />
+      {errors.name && <span>This field is required</span>}
+      <input type="submit" />
+        {/* {FormInputsData.map((input, index) => (
           <FormInput
             key={index}
             label={input.label}
@@ -44,9 +36,11 @@ const AppForm = () => {
           />
 
         ))}
+
+        
         <button type="submit" onClick={handleSubmit} >
             Submit
-        </button>
+        </button> */}
       </form>
     </>
   );
