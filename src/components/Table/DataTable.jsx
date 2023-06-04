@@ -116,8 +116,7 @@ const DataTable = ({ data }) => {
   } = useTable(
     {
       columns,
-      data,
-      // data: dataAfterDeleted ? dataAfterDeleted : data,
+      data: dataAfterDeleted ? dataAfterDeleted : data,
       initialState: { pageIndex: 1 },
     },
     usePagination
@@ -125,7 +124,9 @@ const DataTable = ({ data }) => {
 
   const handleEdit = (row) => {
     console.log(row.row);
+    const { _id: id } = row;
     // const { _id } = row;
+    router.push(`/students-record/edit/${id}`);
     // console.log(_id);
   };
   const handleDetailView = (row) => {
