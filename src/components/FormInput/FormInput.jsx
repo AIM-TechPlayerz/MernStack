@@ -1,20 +1,27 @@
 import React from "react";
 
-const FormInput = ({label,name,value,register,tag,type,errors}) => {
+const FormInput = ({ label, name, defaultValue, register, tag, type, errors }) => {
   return (
     <>
       <div>
         <label>{label}</label>
         {tag === "textarea" ? (
-          <textarea name={name} value={value}  {...register(name, { required: true })} />
+          <textarea
+            name={name}
+            defaultValue={defaultValue}
+            {...register(name, { required: true })}
+          />
         ) : (
-          <input type={type} name={name} value={value} 
-          {...register(name, { required: true })} 
-          placeholder={label}
+          <input
+            type={type}
+            name={name}
+            defaultValue={defaultValue}
+            {...register(name, { required: true })}
+            placeholder={label}
           />
         )}
 
-{errors.name && <span>This field is required</span>}
+        {errors.name && <span>This field is required</span>}
       </div>
     </>
   );

@@ -22,26 +22,33 @@ export default async function Page({ params: { id } }) {
   const { _id, name, email, phone, address, description } = await getStudent(
     id
   );
+  const inputValuesFromApi= await getStudent(
+    id
+  );
+
+  const valueArrayFromApi=[name,email,phone,address,description]
 
   console.log(name);
   return (
     <>
-  
-    <div>
-      <Header />
       <div>
-      <h1>ID: {_id && _id}</h1>
-      <h1>Name: {name && name}</h1>
-      <h1>Email: {email && email}</h1>
-      <h1>Phone: {phone && phone}</h1>
-      <h1>Address: {address && address}</h1>
-      <h1>Description: {description && description}</h1>
-    </div>
-    
-<AppForm/>
+        <Header />
+        {/* <div>
+          <h1>ID: {_id && _id}</h1>
+          <h1>Name: {name && name}</h1>
+          <h1>Email: {email && email}</h1>
+          <h1>Phone: {phone && phone}</h1>
+          <h1>Address: {address && address}</h1>
+          <h1>Description: {description && description}</h1>
+        </div> */}
+<br/>
+        <AppForm 
+        isUpdate={true}
+        valueArrayFromApi={valueArrayFromApi}
+        />
 
-<Footer />
-    </div>
+        <Footer />
+      </div>
     </>
   );
 }
