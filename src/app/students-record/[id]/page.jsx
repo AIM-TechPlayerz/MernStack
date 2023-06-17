@@ -1,5 +1,9 @@
 import React from "react";
 import axios from "axios";
+import { Footer, Header } from "@/components";
+import "../../page.module.css"
+import UserInfo from "@/components/userInfo/UserInfo";
+
 
 // get single student record
 const getStudent = async (id) => {
@@ -23,12 +27,22 @@ export default async function Page({ params: { id } }) {
   console.log(name);
   return (
     <div>
-      <h1>ID: {_id && _id}</h1>
-      <h1>Name: {name && name}</h1>
-      <h1>Email: {email && email}</h1>
-      <h1>Phone: {phone && phone}</h1>
-      <h1>Address: {address && address}</h1>
-      <h1>Description: {description && description}</h1>
+    <Header/>
+    <br/>
+    <br/>
+    <br/>
+    <UserInfo
+      id={_id}
+      name={name}
+      email={email}
+      phone={phone}
+      address={address}
+      description={description} 
+    />
+    <br/>
+    <br/>
+    <br/>
+    <Footer/>
     </div>
   );
 }
