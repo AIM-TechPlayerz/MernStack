@@ -22,11 +22,9 @@ export default async function Page({ params: { id } }) {
   const { _id, name, email, phone, address, description } = await getStudent(
     id
   );
-  const inputValuesFromApi= await getStudent(
-    id
-  );
+  const inputValuesFromApi = await getStudent(id);
 
-  const valueArrayFromApi=[name,email,phone,address,description]
+  const valueArrayFromApi = [name, email, phone, address, description];
 
   console.log(name);
   return (
@@ -41,11 +39,8 @@ export default async function Page({ params: { id } }) {
           <h1>Address: {address && address}</h1>
           <h1>Description: {description && description}</h1>
         </div> */}
-<br/>
-        <AppForm 
-        isUpdate={true}
-        valueArrayFromApi={valueArrayFromApi}
-        />
+        <br />
+        <AppForm isUpdate={true} valueArrayFromApi={valueArrayFromApi} />
 
         <Footer />
       </div>

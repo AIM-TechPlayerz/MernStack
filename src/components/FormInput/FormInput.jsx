@@ -1,9 +1,9 @@
 import React from "react";
-
+import "./form.css"
 const FormInput = ({ label, name, defaultValue, register, tag, type, errors }) => {
   return (
     <>
-      <div>
+      <div className="hello">
         <label>{label}</label>
         {tag === "textarea" ? (
           <textarea

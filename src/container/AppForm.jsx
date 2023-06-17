@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormInput } from "@/components";
 import { FormInputsData } from "@/constants";
 import { useForm } from "react-hook-form";
@@ -7,13 +7,21 @@ import axios from "axios";
 
 const AppForm = ({ isUpdate, valueArrayFromApi }) => {
   const [loading, setLoading] = useState(false);
-
+  const [updatedArray, setUpdatedArray] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   // console.log("useForm ",reactHookForm);
+
+  useEffect(() => {
+    const updatedArray = FormInputsData.map((obj, index) => ({
+      ...obj,
+      value: valueArrayFromApi[index],
+    }));
+    setUpdatedArray(updatedArray);
+  }, [valueArrayFromApi]);
 
   const onSubmit = async (data) => {
     console.log("data ", data);
@@ -35,56 +43,48 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
   if (loading) return <div>Loading...</div>;
   console.log(isUpdate, "isUpdate");
 
-  console.log("valueArrayFromApi",valueArrayFromApi)
+  console.log("valueArrayFromApi", valueArrayFromApi);
 
+ 
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {FormInputsData.map((input, index) => {
-          return (
-            <div key={index}>
-              {!isUpdate ? (
-                <div>
-                  <FormInput
-                    key={index}
-                    label={input.label}
-                    name={input.name}
-                    defaultValue={""}
-                    tag={input.tag}
-                    type={input.type}
-                    register={register}
-                    errors={errors}
-                  />
-                </div>
-              ) : (
-                <div>
-                  {valueArrayFromApi.map((value, idNo) => {
-                    return (
-                      <div key={idNo}>
-                        {value}
-                      </div>
-                      // <div key={idNo}>
-                      //   <FormInput
-                      //     key={index}
-                      //     label={input.label}
-                      //     name={input.name}
-                      //     defaultValue={value}
-                      //     tag={input.tag}
-                      //     type={input.type}
-                      //     register={register}
-                      //     errors={errors}
-                      //   />
-                      // </div>
-                    );
-                  }
-                  
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {!isUpdate &&
+          FormInputsData.map((input, index) => {
+            return (
+              <div key={index}>
+                <FormInput
+                  key={index}
+                  label={input.label}
+                  name={input.name}
+                  defaultValue={input.value}
+                  tag={input.tag}
+                  type={input.type}
+                  register={register}
+                  errors={errors}
+                />
+              </div>
+            );
+          })}
+
+        {isUpdate &&
+          updatedArray.map((input, index) => {
+            return (
+              <div key={index}>
+                <FormInput
+                  key={index}
+                  label={input.label}
+                  name={input.name}
+                  defaultValue={input.value}
+                  tag={input.tag}
+                  type={input.type}
+                  register={register}
+                  errors={errors}
+                />
+              </div>
+            );
+          })}
         <input type="submit" />
       </form>
     </>

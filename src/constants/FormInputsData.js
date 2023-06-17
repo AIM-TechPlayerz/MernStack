@@ -5,7 +5,8 @@ const FormInputsData=[
         type:"text",
         name:"name",
         placeholder:"Enter your name",
-        required:true        
+        required:true,
+        value:""     
     },
     {
         label:"Email",
@@ -13,7 +14,8 @@ const FormInputsData=[
         type:"email",
         name:"email",
         placeholder:"Enter your email",
-        required:true
+        required:true,
+        value:"" 
     },
     {
         label:"Phone Number",
@@ -21,7 +23,8 @@ const FormInputsData=[
         type:"number",
         name:"phone",
         placeholder:"Enter your phone number",
-        required:true
+        required:true,
+        value:"" 
     },
     {
         label:"Address",
@@ -29,7 +32,8 @@ const FormInputsData=[
         type:"text",
         name:"address",
         placeholder:"Enter your address",
-        required:true
+        required:true,
+        value:"" 
     },
     {
         label:"Description",
@@ -37,7 +41,8 @@ const FormInputsData=[
         type:"text",
         name:"description",
         placeholder:"Enter your message",
-        required:true
+        required:true,
+        value:"" 
     }
         
 ]
