@@ -1,0 +1,31 @@
+.btn{
+    background-color: aqua !important;
+    color: white !important;
+    text-align: center;
+    cursor: pointer;
+    font-size: large;
+    border-radius: 30%;
+    width: 90px;
+    height: 60px;
+    transition: 1s;
+    outline: 5cm red;
+}
+.btn:hover{
+    background-color: slateblue !important;
+    color: whitesmoke !important;
+    transition: 1s;
+    outline: 5cm red;
+    border: 2px black;
+    border-radius: 0%;
+    font-size: 25px;
+}
+.textcenter{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.testclass{
+    background-color: aliceblue;
+    color: black;
+    border-radius: 5%;
+}

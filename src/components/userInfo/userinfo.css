@@ -1,7 +1,12 @@
 .cssforuserinfo{
-    background-color: red;
-}
-#smthing{
-    background-color: black;
     color: white;
+    background-color: rgb(165, 86, 49);
+    text-align: center;
+}
+.Info{
+    background-color: crimson;
+    color: white;
+    font-size: larger;
+    font-family: cursive;
+    text-align: center;
 }
