@@ -1,5 +1,5 @@
 import React from "react";
-import "./form.css"
+import "./formInput.css"
 const FormInput = ({ label, name, defaultValue, register, tag, type, errors }) => {
   return (
     <>
@@ -23,6 +23,7 @@ const FormInput = ({ label, name, defaultValue, register, tag, type, errors }) =
 
         {errors.name && <span>This field is required</span>}
       </div>
+      <br/><br/>
     </>
   );
 };

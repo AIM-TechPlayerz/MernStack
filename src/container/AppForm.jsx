@@ -40,6 +40,11 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
     }
   };
 
+  const onEdit = async (data) => {
+    
+  }
+
+
   if (loading) return <div>Loading...</div>;
   console.log(isUpdate, "isUpdate");
 
