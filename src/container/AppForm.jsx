@@ -4,6 +4,7 @@ import { FormInput } from "@/components";
 import { FormInputsData } from "@/constants";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import './style.css'
 
 const AppForm = ({ isUpdate, valueArrayFromApi }) => {
   const [loading, setLoading] = useState(false);
@@ -54,7 +55,7 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="textcenter" onSubmit={handleSubmit(onSubmit)}>
         {!isUpdate &&
           FormInputsData.map((input, index) => {
             return (
@@ -90,7 +91,8 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
               </div>
             );
           })}
-        <input type="submit" />
+          <br />
+        <input className="btn" type="submit"/>
       </form>
     </>
   );
