@@ -19,7 +19,7 @@ const getStudent = async (id) => {
 export default async function Page({ params: { id } }) {
   
   console.log("this is id", id);
-  const { name, email, phone, address, description } = await getStudent(id);// ---> object form 
+  const { _id,name, email, phone, address, description } = await getStudent(id);// ---> object form 
   // loop ---> map ---> array
 
   const valueArrayFromApi = [name, email, phone, address, description];
@@ -30,7 +30,8 @@ export default async function Page({ params: { id } }) {
       <div>
         <Header />
         <br />
-        <AppForm isUpdate={true} valueArrayFromApi={valueArrayFromApi} />
+        <AppForm isUpdate={true} valueArrayFromApi={valueArrayFromApi}
+        id={_id} />
 
         <Footer />
       </div>

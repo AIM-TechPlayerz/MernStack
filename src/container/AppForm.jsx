@@ -4,9 +4,9 @@ import { FormInput } from "@/components";
 import { FormInputsData } from "@/constants";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import './style.css'
+import "./style.css";
 
-const AppForm = ({ isUpdate, valueArrayFromApi }) => {
+const AppForm = ({ isUpdate, valueArrayFromApi, id }) => {
   const [loading, setLoading] = useState(false);
   const [updatedArray, setUpdatedArray] = useState([]);
   const {
@@ -17,12 +17,13 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
   // console.log("useForm ",reactHookForm);
 
   useEffect(() => {
+    if (!isUpdate) return;
     const updatedArray = FormInputsData.map((obj, index) => ({
       ...obj,
       value: valueArrayFromApi[index],
     }));
     setUpdatedArray(updatedArray);
-  }, [valueArrayFromApi]);
+  }, [isUpdate, valueArrayFromApi]);
 
   const onSubmit = async (data) => {
     console.log("data ", data);
@@ -41,21 +42,33 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
     }
   };
 
-  const onEdit = async (data) => {
-    
-  }
-
+  const onEditHandler = async (data) => {
+    try {
+      setLoading(true);
+      const response = await axios.put(
+        `http://localhost:3000/api/students/${id}`,
+        data
+      );
+      alert(response.data.message)
+      console.log("response ", response);
+    } catch (error) {
+      console.log("error ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) return <div>Loading...</div>;
   console.log(isUpdate, "isUpdate");
 
   console.log("valueArrayFromApi", valueArrayFromApi);
 
- 
-
   return (
     <>
-      <form className="textcenter" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="textcenter"
+        onSubmit={handleSubmit(isUpdate ? onEditHandler : onSubmit)}
+      >
         {!isUpdate &&
           FormInputsData.map((input, index) => {
             return (
@@ -91,8 +104,8 @@ const AppForm = ({ isUpdate, valueArrayFromApi }) => {
               </div>
             );
           })}
-          <br />
-        <input className="btn" type="submit"/>
+        <br />
+        <input className="btn" type="submit" />
       </form>
     </>
   );
