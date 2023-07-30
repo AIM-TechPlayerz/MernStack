@@ -1,0 +1,28 @@
+/* FeedbackCard.css */
+.feedback-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-content {
+    margin-bottom: 10px;
+  }
+  
+  .email {
+    font-weight: bold;
+  }
+  
+  .feedback-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

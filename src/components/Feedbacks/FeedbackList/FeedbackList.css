@@ -1,0 +1,10 @@
+/* FeedbackList.css */
+.feedback-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .feedback-list h2 {
+    text-align: center;
+  }
+  

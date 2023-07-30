@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import connectDatabase from "../../../database/connectDatabase";
-import { Feedback } from "@/models/feedback";
+import { connectDatabase } from "@/database";
+import { Feedback } from "../../../model/feedback";
 
 export default async function handler(req, res) {
   await connectDatabase();
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     res.status(500).json({ success: false, message: error.message });
   }
 }
+
 
 
 
